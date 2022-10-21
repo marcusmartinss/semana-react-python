@@ -6,6 +6,7 @@ import { ListaStyled, ItemLista, Foto, Informacoes, Nome, Valor, Descricao, List
 
 interface ListaProps {
     professores: Professor[],
+    onSelect: (professor: Professor) => void
 }
 
 const Lista = (props: ListaProps) => {
@@ -20,7 +21,12 @@ const Lista = (props: ListaProps) => {
                                 <Nome>{professor.nome}</Nome>
                                 <Valor>{FormatadorService.valorMonetario(professor.valor_hora)} por hora</Valor>
                                 <Descricao>{FormatadorService.limitarTexto(professor.descricao, 200)}</Descricao>
-                                <Button sx={{ width: '80%' }}>Marcar aula com {professor.nome.trim().split(' ')[0]}</Button>
+                                <Button 
+                                    sx={{ width: '80%' }}
+                                    onClick={() => { props.onSelect(professor) }}
+                                >
+                                    Marcar aula com {professor.nome.trim().split(' ')[0]}
+                                </Button>
                             </Informacoes>
                         </ItemLista>
                     ))}

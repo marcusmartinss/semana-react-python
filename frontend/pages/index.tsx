@@ -14,18 +14,25 @@ const Home: NextPage = () => {
     nome,
     setNome,
     email,
-    setEmail
+    setEmail,
+    professorSelecionado,
+    setProfessorSelecionado,
+    marcarAula
   } = useIndex()
   
   return (
     <Fragment>
       <Box sx={{ backgroundColor: 'secondary.main' }}>
-        <Lista professores={listaProfessores}></Lista>
+        <Lista
+          professores={listaProfessores}
+          onSelect={(professor) => setProfessorSelecionado(professor)}
+        ></Lista>
       </Box>
 
       <Dialog
-        open={true}
+        open={ professorSelecionado !== null }
         fullWidth
+        onClose={() => setProfessorSelecionado(null)}
         PaperProps={ { sx: {
           pt: 5,
           pr: 5,
@@ -55,8 +62,8 @@ const Home: NextPage = () => {
         </Grid>
 
         <DialogActions sx={{mt: 2}}>
-          <Button>Cancelar</Button>
-          <Button>Marcar</Button>
+          <Button onClick={() => setProfessorSelecionado(null)}>Cancelar</Button>
+          <Button onClick={() => marcarAula}>Marcar</Button>
         </DialogActions>
       </Dialog>
     </Fragment>
